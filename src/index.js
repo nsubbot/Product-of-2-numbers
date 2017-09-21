@@ -4,11 +4,17 @@ module.exports = function multiply(first, second) {
 		second = first;
 		first = temp;
 	}
+
+	// Adaptation for [1...9]
+	if(first.length == 1 || second.length ==1) {
+		return (parseInt(first) * parseInt(second)).toString();
+	}
+
 	first = reverseStr(first.toString());
 	second = reverseStr(second.toString());
 
 	let circleMult = [];
-	let summary = []
+	let summary = [];
 	let temp = 0;
 	let buff = 0;
 	for(let i = 0; i < second.length; i++) {
@@ -20,14 +26,16 @@ module.exports = function multiply(first, second) {
 			circleMult.push(temp.toString());
 			temp = 0;
 		}
+		//console.log("res of " + second[i] + " mult " + reverseStr(first) + " is " + reverseStr(circleMult.join('') + buff));
 		if(buff != 0) { 
 			circleMult.push(buff.toString());
 			buff = 0;
 		}
 		circleMult.reverse();
 		for (let j = 0; j < i; j++)
-			circleMult.push('0');
+		circleMult.push('0');
 		circleMult.reverse();
+		//console.log("res of " + second[i] + " mult " + reverseStr(first) + " is " + reverseStr(circleMult.join('')));
 		summary.push(circleMult.join(''));
 		circleMult = [];
 	}
@@ -50,12 +58,16 @@ module.exports = function multiply(first, second) {
 			tempCheck.push(temp.toString());
 			//total[j] =  temp.toString();
 		}
+		if (buff !== 0) {
+			tempCheck.push(buff.toString())
+		}
 		total = tempCheck;
+		//console.log(total);
 		tempCheck = [];
+		buff = 0;
+		temp = 0;
 	}
-	total.reverse();
-	console.log(total.join(''));
-	return total.join('');
+	return total.reverse().join('');
 
 
 
